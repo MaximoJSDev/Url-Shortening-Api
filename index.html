@@ -18,8 +18,29 @@
   <body>
     <!-- Nav -->
     <nav class="nav">
-      <img src="./images/logo.svg" class="nav__logo" />
-      <div class="img-menu">
+      <div class="nav__left">
+        <img src="./images/logo.svg" class="nav__logo" />
+        <ul class="nav__left__links">
+          <li class="nav__left__li">
+            <a class="nav__left__a" href="">Features</a>
+          </li>
+          <li class="nav__left__li">
+            <a class="nav__left__a" href="">Pricing</a>
+          </li>
+          <li class="nav__left__li">
+            <a class="nav__left__a" href="">Resources</a>
+          </li>
+        </ul>
+      </div>
+
+      <ul class="nav__right__links">
+        <li class="nav__right__li">
+          <a class="nav__right__a" href="">Login</a></li>
+        <li class="nav__right__li">
+          <a class="nav__right__a sign-up" href="">Sign Up</a>
+        </li>
+      </ul>
+      <div class="toggle-menu">
         <div class="line"></div>
         <div class="line"></div>
         <div class="line"></div>
@@ -65,36 +86,38 @@
           statistics dashboard.
         </p>
       </div>
-      <article class="statistics__cards line-blue">
-        <div class="statics__cards__container-img">
-          <img src="./images/icon-brand-recognition.svg" alt="" />
-        </div>
-        <h3 class="statistics__cards__title">Brand Recognition</h3>
-        <p class="statistics__cards__paragraph">
-          Boost your brand recognition with each click. Generic links don't mean
-          a thing. Breanded links help instil confidence in your content.
-        </p>
-      </article>
-      <article class="statistics__cards line-blue">
-        <div class="statics__cards__container-img">
-          <img src="./images/icon-detailed-records.svg" alt="" />
-        </div>
-        <h3 class="statistics__cards__title">Detailed Records</h3>
-        <p class="statistics__cards__paragraph">
-          Gain insights into wha is clicking your links. Knowing when and where
-          people engage with your content helps inform better decisions.
-        </p>
-      </article>
-      <article class="statistics__cards">
-        <div class="statics__cards__container-img">
-          <img src="./images/icon-fully-customizable.svg" alt="" />
-        </div>
-        <h3 class="statistics__cards__title">Fully Customizable</h3>
-        <p class="statistics__cards__paragraph">
-          Improve brand awareness and content discoverability through
-          customizable links supercharging audience engagement.
-        </p>
-      </article>
+      <div class="statistics__content-cards">
+        <article class="statistics__cards line-blue">
+          <div class="statics__cards__container-img">
+            <img src="./images/icon-brand-recognition.svg" alt="" />
+          </div>
+          <h3 class="statistics__cards__title">Brand Recognition</h3>
+          <p class="statistics__cards__paragraph">
+            Boost your brand recognition with each click. Generic links don't
+            mean a thing. Breanded links help instil confidence in your content.
+          </p>
+        </article>
+        <article class="statistics__cards line-blue">
+          <div class="statics__cards__container-img">
+            <img src="./images/icon-detailed-records.svg" alt="" />
+          </div>
+          <h3 class="statistics__cards__title">Detailed Records</h3>
+          <p class="statistics__cards__paragraph">
+            Gain insights into wha is clicking your links. Knowing when and
+            where people engage with your content helps inform better decisions.
+          </p>
+        </article>
+        <article class="statistics__cards">
+          <div class="statics__cards__container-img">
+            <img src="./images/icon-fully-customizable.svg" alt="" />
+          </div>
+          <h3 class="statistics__cards__title">Fully Customizable</h3>
+          <p class="statistics__cards__paragraph">
+            Improve brand awareness and content discoverability through
+            customizable links supercharging audience engagement.
+          </p>
+        </article>
+      </div>
     </div>
     <!-- Boost your links -->
     <section class="links-today">
@@ -130,5 +153,7 @@
         <a href=""><img src="./images/icon-instagram.svg" alt="" /></a>
       </div>
     </footer>
+
+    <script src="script.js"></script>
   </body>
 </html>

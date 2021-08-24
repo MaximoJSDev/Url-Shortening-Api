@@ -36,7 +36,40 @@ body {
 .nav__logo {
   height: 40px;
 }
-.img-menu {
+.nav__left,
+.nav__left__links,
+.nav__right__links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.nav__left__links {
+  margin-left: 25px;
+  gap: 40px;
+}
+.nav__left__li {
+  list-style: none;
+}
+.nav__left__a,
+.nav__right__a {
+  font-weight: 700;
+  font-size: 19px;
+  text-decoration: none;
+  color: var(--Grayish-Violet);
+}
+.nav__right__links {
+  gap: 40px;
+}
+.nav__right__li {
+  list-style: none;
+}
+.sign-up {
+  color: #fff;
+  padding: 9px 25px;
+  background-color: var(--Cyan);
+  border-radius: 24px;
+}
+.toggle-menu {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -50,24 +83,23 @@ body {
   height: 4px;
 }
 .header {
-  min-height: 96vh;
+  min-height: 94vh;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
   margin-bottom: 180px;
+  overflow: hidden;
 }
 .header__container-img {
-  width: 100%;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow-x: hidden;
   margin-top: 70px;
 }
 .header__container-img__img {
-  transform: translateX(120px);
-  width: 33em;
+  transform: translateX(95px);
+  width: 32em;
 }
 .header__container-text {
   display: flex;
@@ -80,13 +112,12 @@ body {
   max-width: 420px;
   font-size: 2.55em;
   margin: 40px 0 0;
-  text-align: center;
   line-height: 1.1em;
   color: var(--Very-Dark-Blue);
 }
 .header__container-text__paragraph {
   margin: 15px 0 30px;
-  width: 370px;
+  max-width: 370px;
   font-size: 1.118em;
   line-height: 1.75em;
   color: var(--Grayish-Violet);
@@ -95,7 +126,7 @@ body {
   font-size: 1.3em;
   text-decoration: none;
   color: #fff;
-  padding: 15px 40px;
+  padding: 17px 40px;
   background-color: var(--Cyan);
   border-radius: 30px;
 }
@@ -108,7 +139,7 @@ body {
   align-items: center;
   justify-content: center;
   flex-direction: column;
-  padding: 30px;
+  padding: 1.875em 2.5em;
   background: var(--Dark-Violet) url(./images/bg-shorten-mobile.svg) no-repeat
     left top;
   background-size: 200% 100%;
@@ -146,6 +177,13 @@ body {
 }
 .statistics__advanced__title {
   color: var(--Very-Dark-Blue);
+}
+.statistics__content-cards {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  column-gap: 50px;
 }
 .statistics__cards {
   position: relative;
@@ -207,7 +245,7 @@ body {
   color: #fff;
 }
 .links-today .btn-started {
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .footer {
@@ -243,4 +281,108 @@ body {
 .footer__social img {
   height: 30px;
   margin: 20px 15px;
+}
+
+
+.nav__left__links,
+.nav__right__links {
+  display: none;
+}
+@media (min-width: 1440px) {
+  .nav {
+    padding-left: 60px;
+    padding-right: 60px;
+  }
+  .nav__left, .nav__left__links, .nav__right__links {
+    display: flex;
+  }
+  .toggle-menu {
+    display: none;
+  }
+  .header {
+    flex-direction: row-reverse;
+    justify-content: space-around;
+    margin-bottom: 0;
+  }
+  .header__container-text {
+    align-items: start;
+    text-align: start;
+  }
+  .header__container-text__title {
+    font-size: 4.6em;
+    max-width: 615px;
+  }
+  .header__container-text__paragraph {
+    max-width: 575px;
+    font-size: 1.34em;
+  }
+  .header__container-img {
+    margin-top: 0;
+    width: auto;
+    margin-right: -14em;
+  }
+  .header__container-img__img {
+    width: 50em;
+    transform: none;
+  }
+  .box-url {
+    font-size: 23px;
+    flex-direction: row;
+    max-width: 1400px;
+    background-image: url(./images/bg-shorten-desktop.svg);
+    background-size: 100%;
+  }
+  .box-url__inputs {
+    padding: 22px;
+  }
+  .btn-form {
+    width: 25%;
+  }
+  .statistics__advanced__title {
+    font-size: 2.6em;
+  }
+  .statistics__advanced__paragraph {
+    font-size: 20px;
+    max-width: 595px;
+    margin-top: 10px;
+  }
+  .statistics__content-cards {
+    flex-direction: row;
+  }
+  .statistics__cards:nth-child(1) {
+    margin-top: 5em;
+  }
+  .statistics__cards:nth-child(2) {
+    margin-top: 10em;
+  }
+  .statistics__cards:nth-child(3) {
+    margin-top: 15em;
+  }
+  .statistics__cards {
+    margin-bottom: 6.5em;
+    text-align: start;
+  }
+  .statistics__cards__title {
+    width: 100%;
+  }
+  .statistics__cards__paragraph {
+    max-width: 365px;
+  }
+  .line-blue:before {
+    bottom: 48%;
+    right: -50px;
+    width: 50px;
+    height: 20px;
+  }
+  .links-today {
+    background-image: url(./images/bg-boost-desktop.svg);
+  }
+  .links-today__title {
+    font-size: 2.6em;
+  }
+  .footer {
+    flex-direction: row;
+    align-items: start;
+    justify-content: space-evenly;
+  }
 }
