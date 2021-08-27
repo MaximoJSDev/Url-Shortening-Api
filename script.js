@@ -9,6 +9,7 @@ const inputLink = document.querySelector(".input-form");
 const boxUrl = document.querySelector(".box-url");
 const boxSend = document.querySelector(".btn-form");
 var copyPaste;
+var array = [];
 
 toggleMenu.addEventListener("click", () => {
   modal.classList.toggle("active");
@@ -34,51 +35,69 @@ const obtenerLink = async (convertirLink) => {
       `https://api.shrtco.de/v2/shorten?url=${convertirLink}`
     );
     data = await res.json();
+
     pintarShortLink(data);
     console.log(data.result);
     inputLink.value = "";
   } catch (error) {
-    alert("Parece que ocurrio un error");
+    alert("Parece que ocurrio un error, Intenta con otro link");
     console.log(error);
     boxSend.classList.remove("btn-load");
   }
 };
 
 const pintarShortLink = (link) => {
-  const containerInfo = document.querySelector(".short-container");
-  const templete = document.querySelector(".templete").content;
-  const templeteClone = templete.cloneNode(true);
-  const fragment = document.createDocumentFragment();
+  const obj = {
+    linkTextOriginal: link.result.original_link,
+    linkTextConvertido: link.result.full_short_link,
+    linkHrefConvertido: link.result.full_short_link,
+  };
+  array.push(obj);
+  localStorage.setItem("linksCortados", JSON.stringify(array));
+  storage();
 
-  templeteClone.querySelector(".short-content__link").textContent =
-    link.result.original_link;
-  templeteClone.querySelector(".short-content__short-link").textContent =
-    link.result.full_short_link;
-  templeteClone.querySelector(".short-content__short-link").href =
-    link.result.full_short_link;
-
-  fragment.appendChild(templeteClone);
-  containerInfo.appendChild(fragment);
   boxSend.classList.remove("btn-load");
-
-  // Copiar Enlace
-  copyPaste = document.querySelectorAll(".short-content__copy");
-  copyPaste.forEach((element) => {
-    element.addEventListener("click", () => {
-      let prevSiblings = element.previousElementSibling;
-      element.classList.add("active-btn");
-      element.textContent = "Copied!";
-      setTimeout(() => {
-        element.textContent = "Copy";
-        element.classList.remove("active-btn");
-      }, 3500);
-
-      var aux = document.createElement("input");
-      aux.setAttribute("value", prevSiblings.innerHTML);
-      document.body.appendChild(aux);
-      aux.select();
-      document.execCommand("copy");
-      document.body.removeChild(aux);
-    });
-  });
 };
+const storage = () => {
+  listaDeLinks = JSON.parse(localStorage.getItem("linksCortados"));
+
+  if (listaDeLinks != null) {
+    listaDeLinks.forEach((element) => {
+      const containerInfo = document.querySelector(".short-container");
+      const templete = document.querySelector(".templete").content;
+      const templeteClone = templete.cloneNode(true);
+      const fragment = document.createDocumentFragment();
+
+      // Crear Link e insertarlo
+      templeteClone.querySelector(".short-content__link").textContent =
+        element.linkTextOriginal;
+      templeteClone.querySelector(".short-content__short-link").textContent =
+        element.linkTextConvertido;
+      templeteClone.querySelector(".short-content__short-link").href =
+        element.linkHrefConvertido;
+      fragment.appendChild(templeteClone);
+      containerInfo.appendChild(fragment);
+
+      // Copiar Enlace
+      copyPaste = document.querySelectorAll(".short-content__copy");
+      copyPaste.forEach((element) => {
+        element.addEventListener("click", () => {
+          const prevSiblings = element.previousElementSibling;
+          element.classList.add("active-btn");
+          element.textContent = "Copied!";
+          setTimeout(() => {
+            element.textContent = "Copy";
+            element.classList.remove("active-btn");
+          }, 3500);
+          const aux = document.createElement("input");
+          aux.setAttribute("value", prevSiblings.innerHTML);
+          document.body.appendChild(aux);
+          aux.select();
+          document.execCommand("copy");
+          document.body.removeChild(aux);
+        });
+      });
+    });
+  }
+};
+window.addEventListener("DOMContentLoaded", storage);
