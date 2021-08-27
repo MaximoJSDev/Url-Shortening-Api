@@ -8,7 +8,6 @@ const loggingClone = logging.cloneNode(true);
 const inputLink = document.querySelector(".input-form");
 const boxUrl = document.querySelector(".box-url");
 const boxSend = document.querySelector(".btn-form");
-var copyPaste;
 var array = [];
 
 toggleMenu.addEventListener("click", () => {
@@ -79,7 +78,7 @@ const storage = () => {
       containerInfo.appendChild(fragment);
 
       // Copiar Enlace
-      copyPaste = document.querySelectorAll(".short-content__copy");
+      const copyPaste = document.querySelectorAll(".short-content__copy");
       copyPaste.forEach((element) => {
         element.addEventListener("click", () => {
           const prevSiblings = element.previousElementSibling;
