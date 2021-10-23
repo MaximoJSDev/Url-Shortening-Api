@@ -39,7 +39,7 @@ const obtenerLink = async (convertirLink) => {
     console.log(data.result);
     inputLink.value = "";
   } catch (error) {
-    alert("Parece que ocurrio un error, Intenta con otro link");
+    alert("It seems that an error occurred, please try another url");
     console.log(error);
     boxSend.classList.remove("btn-load");
   }
@@ -88,12 +88,7 @@ const storage = () => {
             element.textContent = "Copy";
             element.classList.remove("active-btn");
           }, 3500);
-          const aux = document.createElement("input");
-          aux.setAttribute("value", prevSiblings.innerHTML);
-          document.body.appendChild(aux);
-          aux.select();
-          document.execCommand("copy");
-          document.body.removeChild(aux);
+          navigator.clipboard.writeText(prevSiblings.textContent);
         });
       });
     });
