@@ -8,7 +8,7 @@ const loggingClone = logging.cloneNode(true);
 const inputLink = document.querySelector(".input-form");
 const boxUrl = document.querySelector(".box-url");
 const boxSend = document.querySelector(".btn-form");
-var array = [];
+let arrayLinks = [];
 
 toggleMenu.addEventListener("click", () => {
   modal.classList.toggle("active");
@@ -18,7 +18,7 @@ toggleMenu.addEventListener("click", () => {
 
 boxUrl.addEventListener("submit", (e) => {
   e.preventDefault();
-  if (inputLink.value == "") {
+  if (inputLink.value.trim() == "") {
     inputLink.classList.add("errorLink");
   } else {
     inputLink.classList.remove("errorLink");
@@ -35,63 +35,66 @@ const obtenerLink = async (convertirLink) => {
     );
     data = await res.json();
 
-    pintarShortLink(data);
-    console.log(data.result);
+    guardarInformacion(data);
     inputLink.value = "";
   } catch (error) {
     alert("It seems that an error occurred, please try another url");
     console.log(error);
+  } finally {
     boxSend.classList.remove("btn-load");
   }
 };
 
-const pintarShortLink = (link) => {
+const guardarInformacion = (link) => {
   const obj = {
     linkTextOriginal: link.result.original_link,
     linkTextConvertido: link.result.full_short_link,
     linkHrefConvertido: link.result.full_short_link,
   };
-  array.push(obj);
-  localStorage.setItem("linksCortados", JSON.stringify(array));
-  storage();
-
-  boxSend.classList.remove("btn-load");
+  pintarLink(obj)
+  arrayLinks = [...arrayLinks, obj];
+  localStorage.setItem("linksCortados", JSON.stringify(arrayLinks));
 };
-const storage = () => {
-  listaDeLinks = JSON.parse(localStorage.getItem("linksCortados"));
 
-  if (listaDeLinks != null) {
-    listaDeLinks.forEach((element) => {
-      const containerInfo = document.querySelector(".short-container");
-      const templete = document.querySelector(".templete").content;
-      const templeteClone = templete.cloneNode(true);
-      const fragment = document.createDocumentFragment();
+const pintarLink = (element) => {
+  //template
+  const containerInfo = document.querySelector(".short-container");
+  const templete = document.querySelector(".templete").content;
+  const templeteClone = templete.cloneNode(true);
+  const fragment = document.createDocumentFragment();
 
-      // Crear Link e insertarlo
-      templeteClone.querySelector(".short-content__link").textContent =
-        element.linkTextOriginal;
-      templeteClone.querySelector(".short-content__short-link").textContent =
-        element.linkTextConvertido;
-      templeteClone.querySelector(".short-content__short-link").href =
-        element.linkHrefConvertido;
-      fragment.appendChild(templeteClone);
-      containerInfo.appendChild(fragment);
+  // Crea e insertar el Link
+  templeteClone.querySelector(".short-content__link").textContent =
+    element.linkTextOriginal;
+  templeteClone.querySelector(".short-content__short-link").textContent =
+    element.linkTextConvertido;
+  templeteClone.querySelector(".short-content__short-link").href =
+    element.linkHrefConvertido;
+  fragment.appendChild(templeteClone);
+  containerInfo.appendChild(fragment);
 
-      // Copiar Enlace
-      const copyPaste = document.querySelectorAll(".short-content__copy");
-      copyPaste.forEach((element) => {
-        element.addEventListener("click", () => {
-          const prevSiblings = element.previousElementSibling;
-          element.classList.add("active-btn");
-          element.textContent = "Copied!";
-          setTimeout(() => {
-            element.textContent = "Copy";
-            element.classList.remove("active-btn");
-          }, 3500);
-          navigator.clipboard.writeText(prevSiblings.textContent);
-        });
-      });
+  // Copiar Enlace
+  const copyPaste = document.querySelectorAll(".short-content__copy");
+  copyPaste.forEach((element) => {
+    element.addEventListener("click", () => {
+      const prevSiblings = element.previousElementSibling;
+      element.classList.add("active-btn");
+      element.textContent = "Copied!";
+      setTimeout(() => {
+        element.textContent = "Copy";
+        element.classList.remove("active-btn");
+      }, 3500);
+      navigator.clipboard.writeText(prevSiblings.textContent);
     });
-  }
+  });
 };
-window.addEventListener("DOMContentLoaded", storage);
+
+//Verificar si existenten links en el local storage
+if (localStorage.getItem("linksCortados")) {
+  const listaDeLinks = JSON.parse(localStorage.getItem("linksCortados"));
+  arrayLinks = listaDeLinks
+  //Si hay los pintara
+  arrayLinks.forEach(item => {
+    pintarLink(item)
+  });
+}
